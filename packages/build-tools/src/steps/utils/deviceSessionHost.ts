@@ -34,6 +34,10 @@ import {
   startNgrokTunnelAsync,
 } from './remoteDeviceRunSession';
 import { withDeviceRunSessionTimeoutAsync } from './deviceRunSessionTimeout';
+import {
+  IosSimulatorRecordingUtils,
+  SERVE_SIM_STOP_GRACE_PERIOD_MS,
+} from './IosSimulatorRecordingUtils';
 import { SERVE_SIM_STATE_DIR, readServeSimServersAsync } from './serveSimMetricsRecorder';
 
 const WEB_PREVIEW_HOST = '127.0.0.1';
@@ -330,7 +334,8 @@ export async function startDeviceSessionHostAsync(
     env: recording
       ? { ...env, EXPO_DEVICE_HUB_RECORDING_CONTROL_TOKEN: recording.controlToken }
       : env,
-    stopGracePeriodMs: recording ? RECORDING_STOP_GRACE_PERIOD_MS : undefined,
+    // Only an Android host records through expo-device-hub; serve-sim records on iOS.
+    stopGracePeriodMs: recording ? RECORDING_STOP_GRACE_PERIOD_MS : SERVE_SIM_STOP_GRACE_PERIOD_MS,
   });
 
   let previewToken: string | undefined;
@@ -422,6 +427,7 @@ export async function startDeviceSessionHostAsync(
             'report it if it repeats.'
         );
       }
+      IosSimulatorRecordingUtils.useServeSimPackage(packageSpec);
     }
     return host;
   } catch (error) {
