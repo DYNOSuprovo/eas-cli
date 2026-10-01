@@ -23,6 +23,7 @@ This is the log of notable changes to EAS CLI and related packages.
 
 ### 🐛 Bug fixes
 
+- [build-tools] Retry temporary App Store Connect read and update failures without restarting the upload or repeating creation requests. ([#4520](https://github.com/expo/eas-cli/pull/4520) by [@sjchmiela](https://github.com/sjchmiela))
 - [build-tools] Accept `null` for the TestFlight group `hasAccessToAllBuilds` attribute from App Store Connect. ([#4528](https://github.com/expo/eas-cli/pull/4528) by [@sswrk](https://github.com/sswrk))
 - [eas-cli] Support `queued` and `starting` status filters in `eas simulator:list` and keep simulator commands compatible with the current GraphQL schema. ([#4527](https://github.com/expo/eas-cli/pull/4527) by [@sjchmiela](https://github.com/sjchmiela))
 - [build-tools] Explain how to resolve missing or expired Apple agreements when App Store Connect rejects a request. ([#4513](https://github.com/expo/eas-cli/pull/4513) by [@sjchmiela](https://github.com/sjchmiela))
